@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e107Plugin name="Eforum" version="2024" date="2024-08-18" compatibility="2.3.3" installRequired="false" >
+	<category>menu</category>
+</e107Plugin>
