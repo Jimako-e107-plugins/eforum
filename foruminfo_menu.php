@@ -29,9 +29,11 @@ Failsafe here
 */
 //$menuget = e107::getMenu();// ie. popup config details from within menu-manager.
 
-if (!e107::getMenu()->isVisible(array ('foruminfo_menu' => "1-/forum"))) {
+
+if (!e107::getMenu()->isVisible(array ('eforum_menu' => "1-/forum"))) {
 exit;
 }
+
 //e107::lan('forum','menu',true);  // English_menu.php or {LANGUAGE}_menu.php
 //e107::getTemplate('forum');
 
@@ -83,6 +85,7 @@ $sc->setVars($forum);
 */
 //global $forum;
 
+//$ssc = e107::getScBatch("foruminfo", "eforum");
 
 
 
@@ -288,7 +291,7 @@ e107::lan('forum','menu',true);  // English_menu.php or {LANGUAGE}_menu.php
 			$caption = LAN_PLUGIN_FORUM_LATESTPOSTS;
 		}
 */
-e107::lan('eforum',null);  // English_menu.php or {LANGUAGE}_menu.php
+e107::lan('eforum');  // English_menu.php or {LANGUAGE}_menu.php
 //			$caption = "Forum Menu";
 	//	e107::debug('menuPref', $this->menuPref);
 require_once(e_PLUGIN.'forum/forum_class.php');
@@ -353,17 +356,16 @@ function forum_rules($action = 'check')
 // ****************** FIM DA C�PIA DA FUN��O FORUM_RULES DO FORUM.PHP. � PRECISO POR CAUSA DO SHORTCODE...
 }
 */
-	$template = e107::getTemplate('eforum','eforum_menu', null, true, true);
-    $sc = e107::getScBatch('forum', true);
+////////////////////////////////////    $sc = e107::getScBatch('forum', true);
 
 //    $info = "<div class='forummenu overflow-auto'>".$tp->parseTemplate("{INFO}<br>{FORUMINFO}<p><br>{USERLIST}", true, $sc)."</div>";
-    $info = $tp->parseTemplate($template['info'], true, $sc);
+///////////////////////////////////    $info = $tp->parseTemplate($template['info'], true, $sc);
 
 //var_dump ($FORUM_VIEWFORUM_TEMPLATE);
 //		$check_url = e_PAGE ? e_PAGE : ($_SERVER['REQUEST_URI'] ? SITEURLBASE.$_SERVER['REQUEST_URI'] : e_SELF.(e_QUERY ? "?".e_QUERY : ''));
 // POR AGORA TEM DE FICAR ASSIM, POR CAUSA DAS URLS SEF E NORMAIS.... GRRRR
 //		$check_url = e_PAGE!="e_PAGE" ? e_PAGE : e_URL_LEGACY;
-		$check_url = e_PAGE!="e_PAGE" ? e_PAGE : end(explode('/', parse_url(e_URL_LEGACY)['path']));
+///////////////////////		$check_url = e_PAGE!="e_PAGE" ? e_PAGE : end(explode('/', parse_url(e_URL_LEGACY)['path']));
 //		var_dump(e_URL_LEGACY);
 //		var_dump($check_url);
 //var_dump (e_HTTP);
@@ -400,11 +402,13 @@ if ($check_url==="forum.php") {
 //elseif (strpos($check_url, "#forum_viewforum.php") !== false) {
 ///	elseif ($check_url==="forum_viewforum.php") {
 		if ($check_url==="forum_viewforum.php") {
-    $sc = e107::getScBatch('viewforum', 'forum');
+//////////////////    $sc = e107::getScBatch('viewforum', 'forum');
 
 //    var_dump ($sc->getParserVars()['ntUrl']);
 
-    $text = $tp->parseTemplate("{THREADPAGES}", true, $sc);
+
+//    $text = $tp->parseTemplate("{THREADPAGES}", true, $sc);
+//////////////////////////////////////////////    $text = $tp->parseTemplate($template['viewforum'], true, $sc);
 // {NEWTHREADBUTTONX} n�o necess�rio (j� tenho a lista de subforuns no menu princial...), s� preciso mesmo do bot�o...
 //----			if(!empty($sc->getParserVars()['ntUrl']))
 //----			{
@@ -532,21 +536,6 @@ if ($forum->checkPerm($thread->threadInfo['thread_forum_id'], 'post') && $thread
 //----	}
 }
 //	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -756,14 +745,20 @@ $dropdown .= '</li></ul></div>';
 
 
 //$template = e107::getTemplate('eforum','eforum_menu', null, true, true);
+$template = e107::getTemplate('eforum', 'eforum_menu');
 
 //var_dump ($template);
-$sc = e107::getScBatch("foruminfo", "eforum");
-$sc->wrapper('eforum_menu/key');
-//var_dump ($sc->wrapper);
+/////require_once (e_PLUGIN."eforum/eforum_menu_shortcodes.php");
+//var_dump ($sc);
+$sc = e107::getScBatch("foruminfo_menu", "eforum");
+//var_dump ($sc);
+
+$sc->wrapper('eforum_menu/foruminfo');
 //$template .= e107::getTemplate('forum', 'forum_viewforum');
-$foruminfo = e107::getParser()->parseTemplate($template['key'], true, $sc);
+//$foruminfo = e107::getParser()->parseTemplate($template['key'], true, $ssc);
 //var_dump ($text);
+$text .= e107::getParser()->parseTemplate($template['foruminfo'], true, $sc);
+//var_dump ($template);
 
 ///////////////////////////e107::getRender()->tablerender(false, $text, 'ef_menu');
 
