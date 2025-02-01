@@ -10,6 +10,7 @@
 
 if (!defined('e107_INIT'))  exit;
 
+////var_dump (!e107::isInstalled('forum'));
 if (!e107::isInstalled('forum'))
 {
 //	e107::redirect();
@@ -29,7 +30,7 @@ Failsafe here
 */
 //$menuget = e107::getMenu();// ie. popup config details from within menu-manager.
 
-
+////var_dump (!e107::getMenu()->isVisible(array ('eforum_menu' => "1-/forum")));
 if (!e107::getMenu()->isVisible(array ('eforum_menu' => "1-/forum"))) {
 exit;
 }
@@ -424,7 +425,7 @@ if ($check_url==="forum.php") {
         $btndrop_class = 'btn-primary';
 			}
 //ICONKEYS
-		$TEMPLATE = e107::getTemplate('forum','forum_viewforum');
+//////////???		$TEMPLATE = e107::getTemplate('forum','forum_viewforum');
 //    var_dump ($TEMPLATE);
   }
 
@@ -676,6 +677,8 @@ var_dump($tmp);
 //-----$dropdown .= '</li></div></div>';
 
 // Para n�o ter separador ao fim...
+///////////////////
+/*
 if(empty($options[count($options)-1])) {
     unset($options[count($options)-1]);
 }
@@ -692,7 +695,8 @@ if(empty($options[count($options)-1])) {
 	{
 		$dropdown .= $val?"<li role='presentation'>".$val."</li>":"<li class='divider'></li>";
 	}
-	
+	*/
+	///////////////
 /*
 	$jumpList = $forum->forumGetAllowed();
 	
@@ -704,14 +708,7 @@ if(empty($options[count($options)-1])) {
 	}
 	
 */	
-	$dropdown .= '</ul></div>';
-
-
-
-
-
-
-
+/////////////////////	$dropdown .= '</ul></div>';
 
 /*
 $dropdown = '<div class="btn-group dropdown">
@@ -745,32 +742,39 @@ $dropdown .= '</li></ul></div>';
 
 
 //$template = e107::getTemplate('eforum','eforum_menu', null, true, true);
-$template = e107::getTemplate('eforum', 'eforum_menu');
+$template = e107::getTemplate('eforum', 'eforum_menu', 'foruminfo');
 
 //var_dump ($template);
 /////require_once (e_PLUGIN."eforum/eforum_menu_shortcodes.php");
 //var_dump ($sc);
 $sc = e107::getScBatch("foruminfo_menu", "eforum");
 //var_dump ($sc);
+$sc->setScVar("drop_options", $options);
+$sc->setScVar("btndrop_class", $btndrop_class);
+$sc->setScVar("afterdrop", $afterdrop);
+//var_dump ($options);
 
 $sc->wrapper('eforum_menu/foruminfo');
 //$template .= e107::getTemplate('forum', 'forum_viewforum');
 //$foruminfo = e107::getParser()->parseTemplate($template['key'], true, $ssc);
 //var_dump ($text);
-$text .= e107::getParser()->parseTemplate($template['foruminfo'], true, $sc);
-//var_dump ($template);
-
+$text .= $tp->parseTemplate($template['main'], true, $sc);
+//var_dump ($template['foruminfo']['caption']);
+$caption= $template['caption']?$tp->parseTemplate($template['caption'], true, $sc):LAN_EFORUM_10;
+/*
+echo "<pre>";
+var_dump ($template);
+echo "</pre>";
+var_dump ($template['caption']);
+var_dump ($caption);
+*/
 ///////////////////////////e107::getRender()->tablerender(false, $text, 'ef_menu');
-
-
-
-
 
 // Sem perms, pois n�o est�o ok na p�gina forum.php....
 // A aguardar que o shortcocde {USERLIST} possa levar wrappers...
 
 //		e107::getRender()->tablerender($caption, $info."<br>".$text.$dropdown."<p>".$afterdrop, 'foruminfo_menu');
-		e107::getRender()->tablerender(LAN_EFORUM_10, $info."<br>".$text.$dropdown."<p>".$afterdrop.$foruminfo, 'foruminfo_menu');
+		echo $tp->parseTemplate($template['start']).e107::getRender()->tablerender($caption, $text, 'foruminfo_menu', true).$tp->parseTemplate($template['end']);
 ///	}
 
 ////}

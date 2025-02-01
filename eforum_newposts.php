@@ -59,7 +59,10 @@ $qry = 'menu_parms="'.e107::serialize($tmp).'" WHERE menu_path="forum/" AND menu
 //$ns->tablerender("", $tp->parseTemplate("{MENU: path=forum/newforumposts&layout=main}",true));
 ///$text = e107::getParser()->parseTemplate("{MENU: path=forum/newforumposts&layout=main}",true);
 
-require_once(HEADERF); 					// render the header (everything before the main content area)
+require_once (e_PLUGIN.'forum/forum_class.php');
+$forum = new e107forum();
+require_once(HEADERF);
+// render the header (everything before the main content area)
 ///echo $text;
 ////echo "<hr><hr><hr><hr><hr><hr><hr><hr><hr><hr><hr>---------»";
 
