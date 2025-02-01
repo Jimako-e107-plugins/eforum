@@ -7,8 +7,54 @@
  */
 
 if (!defined('e107_INIT'))  exit;
+//require("eforum_global_template.php");
 
+//$EFORUM_MENU_WRAPPER['foruminfo']['EFIM_ICONKEY']		= 	"<div class='card col'>{---}</div>";
+//$SC_WRAPPER['EFIM_ICONKEY'] = "<div class='card col'>{---}</div>";
+/////////$SC_WRAPPER['EFIM_ICONKEY'] = "<p><br>".$EFORUMGLOBAL_WRAPPER['ICONKEY'];
+//$EFORUM_MENU_WRAPPER['EFIM_ICONKEY'] = "»»»»»»»»»»".$FORUMGLOBAL_WRAPPER['ICONKEY'];
+//$NEWFORUMPOSTS_MENU_WRAPPER['main']['PERMS'] = "<div class='col-4 forum-perms justify-content-center d-flex align-items-center {PERMS:type=1}'>{---}</div>";
+$SC_WRAPPER['EFIM_PERMS']			= "<br><div class='forum-perms justify-content-center d-flex align-items-center {PERMS:type=1}'>{---}</div>";
+$SC_WRAPPER['EFIM_USERLIST']			= "{LAN=ONLINE}<br>{---}<br>";
+//$EFORUM_MENU_WRAPPER['EFIM_PERMS']			= "<div class='forum-perms justify-content-center d-flex align-items-center {PERMS:type=1}'>{---}</div>";
+
+/////////$EFORUM_MENU_TEMPLATE['perms_separator']	= $EFORUMGLOBAL_TEMPLATE['perms_separator'];
+/////////$EFORUM_MENU_TEMPLATE['iconkey']			= $EFORUMGLOBAL_TEMPLATE['iconkey'];
+
+//$SC_WRAPPER['VIEWABLE_BY']			= $FORUMGLOBAL_WRAPPER['VIEWABLE_BY'];
+/*
+$EFORUM_MENU_TEMPLATE['foruminfo'] 	= "	<div class='forummenu overflow-auto'>{EFIM_INFO}<br>{EFIM_FORUMINFO}<p><br>{EFIM_USERLIST}</div>
+										<div class='d-flex col justify-content-center align-items-center'>
+										{EFIM_USERINFOX}
+										</div>
+										{EFIM_THREADPAGES}
+										{EFIM_ICONKEY}
+										{EFIM_PERMS}
+										{EFIM_DROPDOWN}<p>
+										{EFIM_AFTERDROP}
+										";
+*/
+//	{EFIM_USERINFOX} é redundnate porque o mesmo já está no {EFIM_DROPDOWN}
+
+
+$EFORUM_MENU_TEMPLATE['foruminfo']['caption'] 	= "{LAN=LAN_EFORUM_10}";
+$EFORUM_MENU_TEMPLATE['foruminfo']['main'] 	= "	<div class='forummenu overflow-auto'>{EFIM_INFO}<br>{EFIM_FORUMINFO}<br>{EFIM_USERLIST}<p></div>
+										{EFIM_DROPDOWN}
+										{EFIM_ICONKEY}
+										{EFIM_PERMS}
+										{EFIM_VIEWABLE_BY}
+										{EFIM_THREADPAGES}
+										<p>
+										{EFIM_AFTERDROP}
+										";
+//$EFORUM_MENU_TEMPLATE['foruminfo']['end'] 	= "";
+										/// Enventualmente passara isto para um menu com tabs
+
+
+/*
 $EFORUM_MENU_TEMPLATE['info'] 	= "<div class='forummenu overflow-auto'>{INFO}<br>{FORUMINFO}<p><br>{USERLIST}</div>";
+
+$EFORUM_MENU_TEMPLATE['viewforum'] 	= "{THREADPAGES}";
 
 $EFORUM_MENU_TEMPLATE['key'] 	= "<div class='d-flex col justify-content-center align-items-center'>
 										{EFIM_ICONKEY}
@@ -18,6 +64,7 @@ $EFORUM_MENU_TEMPLATE['key'] 	= "<div class='d-flex col justify-content-center a
 										</div>";
 
 $EFORUM_MENU_WRAPPER['key']['EFIM_ICONKEY']		= 	"<div class='card col'>{---}</div>";
+*/
 										/*
 $ENEWS_MENU_TEMPLATE['users']['caption'] 	= TD_MENU_L1;
 $ENEWS_MENU_TEMPLATE['users']['start']		= "<div class='usersmenu inner'>"; // set the {NEWSIMAGE} dimensions. 								
